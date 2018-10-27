@@ -15,6 +15,8 @@ router.use('/user',require('../controller/generaluser'))
 router.use('/ddyj/news',require('../controller/news'))
 router.use('/ddyj/category',require('../controller/category'))
 router.use('/ddyj/swiper',require('../controller/swiper'))
+router.use('/ddyj/topic',require('../controller/topic'))
+router.use('/ddyj/common',require('../controller/common'))
 
 // jwt demo
 router.post('/jwt/login', async(req,res,next) =>{

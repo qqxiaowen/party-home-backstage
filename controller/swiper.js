@@ -42,7 +42,7 @@ router.get('/', async(req,res,next) => {
     }
 })
 // 获取全部轮播图
-router.get('/all',adminauth,async(req,res,next) =>{
+router.get('/all',async(req,res,next) =>{
     try{
         let {pn=1,size=10} = req.query
         pn = parseInt(pn)
