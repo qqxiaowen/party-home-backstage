@@ -42,7 +42,7 @@ router.get('/bytopic/:id',async(req,res,next) => {
         let data = await common.find({topic:id})
                         .limit(size)
                         .skip((pn-1)*size)
-                        .sort({_id:-1})
+                        .sort({_id:1})
                         .populate({
                             path:'user',
                             select:'username nicheng avatar'

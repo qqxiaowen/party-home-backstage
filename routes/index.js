@@ -18,6 +18,7 @@ router.use('/ddyj/swiper',require('../controller/swiper'))
 router.use('/ddyj/topic',require('../controller/topic'))
 router.use('/ddyj/common',require('../controller/common'))
 router.use('/ddyj/partytoday',require('../controller/partytoday'))
+router.use('/ddyj/summary',require('../controller/summary'))
 
 // jwt demo
 router.post('/jwt/login', async(req,res,next) =>{
@@ -26,7 +27,7 @@ router.post('/jwt/login', async(req,res,next) =>{
         let finduser = await users.findOne({username})
         if(finduser){
             if(password == finduser.password){
-                const token = jwt.sign({ userId: finduser._id }, 'myMiYao', { expiresIn: 60*60*7});
+                const token = jwt.sign({ userId: 'xxx' }, 'myMiYao', { expiresIn: 60*60*7});
                 res.json({
                     code:200,
                     msg:"登录成功",
@@ -69,6 +70,7 @@ router.get('/jwt/news2', (req,res) => {
                 })
                 return
             }else{ // 如果解密成功
+                console.log('解密成功')
                 users.findOne({_id:decoded.userId}).then(user => {
                     if(user){
                         news.find().then(data => {

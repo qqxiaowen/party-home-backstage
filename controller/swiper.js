@@ -25,9 +25,9 @@ router.get('/', async(req,res,next) => {
         size = parseInt(size)
         let count = await swiper.count({status:1})
         let data = await swiper.find({status:1})
-                    .populate({
-                        path:'newsId',
-                    })
+                    // .populate({
+                    //     path:'newsId',
+                    // })
                     .limit(size)
                     .skip((pn-1)*size)
                     .sort({sort:-1, _id:-1})

@@ -11,12 +11,25 @@ const generalusers = new Schema({
       type:String,
       require:true,
     },
+    partyStatus:{ //身份类型
+        type:Number,
+        default:0,
+    },
+    branchStatus:{ //支部类型
+        type:Number,
+        default:3,
+    },
     nicheng:String,
     avatar:String,
     desc:String,
     job:String,
     phone:String,
-    sex:Number
+    sex:Number,
+    education:{//最高学历
+        type:String,
+        default:'大学'
+    }, 
+
 
 },{versionKey: false, timestamps: { createdAt: 'createTime',updatedAt:'updateTime' } })
 
