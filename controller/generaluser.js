@@ -51,15 +51,8 @@ router.post('/login', async (req,res,next) => {
                 })
             }else if(finddata.password == password){
                 req.session.user = finddata;
-                let marktable = await integral.findOne({user:finddata._id})
-                if(marktable){ // 有积分表
-                    console.log('有积分表')
-                    await marktable.update({$push:{marks:{type:'登录',mark:0.1}}})
-                    // await marktable.save()
-                }else{ // 无积分表
-                    console.log('无积分表')
-                }
-                // await integral.update({user:finddata._id},{$push:{marks}})
+
+                await integral.create({user: finddata._id, type: 1, mark: 1})
                 res.json({
                     code:200,
                     msg:'登录成功',
@@ -191,6 +184,7 @@ router.put('/password',auth,async(req,res,next) => {
         console.log('查到的密码：',password,'取到的旧密码：',oldpsd)
         if(password == oldpsd){ //旧密码和查到的密码相同
             await user.updateOne({_id:id},{$set:{password:newpsd}})
+            await integral.create({user: id, type: 2, mark: 5})
             res.json({
                 code:200,
                 msg:'修改密码成功'

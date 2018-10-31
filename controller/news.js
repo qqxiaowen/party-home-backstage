@@ -3,6 +3,8 @@ const router = express.Router()
 
 const news = require('../database/model/news')
 const adminauth = require('./adminauth')
+const integral =require('../database/model/integral')
+
 // 添加新闻
 router.post(`/`,adminauth, async (req,res,next) => {
    try{
@@ -60,9 +62,11 @@ router.get(`/:id`, async (req,res,next) => {
                 .populate({
                     path:'type'
                 })
-
+                
             await data.update({$inc:{look_num:1}}) //自更新look_num 使其加1
-
+            if(req.session&&req.session.user){
+                await integral.create({user: req.session.user._id, type: 5, mark: 1})
+            }
         res.json({
             code:200,
             msg:'获取单条新闻成功',

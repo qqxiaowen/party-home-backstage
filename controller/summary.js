@@ -3,6 +3,7 @@ const router = express.Router()
 
 const auth = require('./auth')
 const summary = require('../database/model/summary')
+const integral =require('../database/model/integral')
 
 // 提交个人总结
 router.post('/',auth,async(req,res,next) => {
@@ -21,6 +22,7 @@ router.post('/',auth,async(req,res,next) => {
             let data = await summary.create({user:id,contents:contents})
             // let data = await new summary({user:id, contents})
             // await data.save()
+            await integral.create({user: id, type: 7, mark: 100})
             res.json({
                 code:200,
                 msg:'提交个人总结成功',
@@ -37,6 +39,7 @@ router.get('/:id',auth,async(req,res,next) => {
         let {id} = req.params;
         let datafind = await summary.findOne({user:id})
         if(datafind){ //该用户提交过个人总结
+            await integral.create({user: req.session.user._id, type: 8, mark: 2})
             res.json({
                 code:200,
                 msg:'获取个人总结成功',

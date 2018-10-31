@@ -5,6 +5,7 @@ const common = require('../database/model/common')
 const topic = require('../database/model/topic')
 const adminauth = require('./adminauth')
 const auth = require('./auth')
+const integral =require('../database/model/integral')
 // 添加一条评论
 router.post('/',auth,async(req,res,next) => {
     try{
@@ -15,6 +16,7 @@ router.post('/',auth,async(req,res,next) => {
             let commondata = await common.create({content, topic:topic_id,user:user_id})
             console.log('123',commondata)
             await topicdata.update({$push: {common: commondata._id}})
+            await integral.create({user: user_id, type: 4, mark: 10})
             res.json({
                 code:200,
                 msg:'添加评论成功',

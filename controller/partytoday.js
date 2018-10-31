@@ -3,6 +3,8 @@ const router = express.Router()
 const request = require('request');
 const cheerio = require('cheerio');
 const iconv = require("iconv-lite");
+const integral =require('../database/model/integral')
+
 
 router.get('/',(req,res) => {
     let url = getUrl()
@@ -10,8 +12,10 @@ router.get('/',(req,res) => {
         let result = iconv.decode(body, "GB2312");
 
         const $ = cheerio.load(result)
-        let content = $('.p1_02').html()
-
+		let content = $('.p1_02').html()
+		if(req.session&&req.session.user){
+			integral.create({user: req.session.user._id, type: 6, mark: 2}).then(data => {})
+		}
         res.json({
             code:200,
             content,
@@ -27,7 +31,6 @@ function getUrl(){
     let day = date.getDate()
     let vm = month >= 10 ? '' + month : '0' + month
     let vd = day >= 10 ? day+'' : '0' + day
-    console.log('月 日',month,day)
     let url ='123'
 
     switch(vm){

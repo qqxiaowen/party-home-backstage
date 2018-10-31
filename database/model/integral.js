@@ -6,12 +6,19 @@ user:{
     type:mongoose.SchemaTypes.ObjectId,
     ref:'user'
 },
-marks:[
-    {
-        type:String,
-        mark:Number,
-    }
-]
+// marks:[
+//     {
+//         type:mongoose.SchemaTypes.Mixed,
+//         mark:Number,
+//         category: String
+//     }
+// ]
+type: {
+    type: Number
+},
+mark: {
+    type: Number
+}
 
 },{versionKey: false, timestamps: { createdAt: 'createTime',updatedAt:'updateTime' } })
 

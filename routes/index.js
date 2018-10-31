@@ -25,6 +25,7 @@ router.use('/ddyj/topic',require('../controller/topic'))
 router.use('/ddyj/common',require('../controller/common'))
 router.use('/ddyj/partytoday',require('../controller/partytoday'))
 router.use('/ddyj/summary',require('../controller/summary'))
+router.use('/ddyj/integral', require('../controller/integral'))
 
 // jwt demo
 router.post('/jwt/login', async(req,res,next) =>{

@@ -4,13 +4,15 @@ const router = express.Router();
 const auth = require('./auth')
 const adminauth = require('./adminauth')
 const topic = require('../database/model/topic')
+const integral =require('../database/model/integral')
+
 // 添加一个主题
 router.post('/',auth,async(req,res,next) => {
     try{    
         let {content} = req.body;
         let user_id = req.session.user._id
         let data = await topic.create({content,user:user_id})
-        console.log(user_id)
+        await integral.create({user: user_id, type: 3, mark: 10})
         res.json({
             code:200,
             msg:'创建主题成功',
