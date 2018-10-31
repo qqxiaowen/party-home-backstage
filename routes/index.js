@@ -9,6 +9,12 @@ const news = require('../database/model/news')
 // router.get('/', function(req, res, next) {
 //   res.render('index', { title: 'Express' });
 // });
+router.get('/admin',(req,res) => {
+    res.render('indexadmin')
+})
+router.get('/',(req,res) => {
+    res.render('index')
+})
 
 router.use('/admin',require('../controller/adminuser'))
 router.use('/user',require('../controller/generaluser'))

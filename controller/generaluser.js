@@ -5,6 +5,7 @@ const auth = require('./auth')
 
 const user = require('../database/model/generaluser')
 const adminuser = require('../database/model/adminuser')
+const integral = require('../database/model/integral')
 
 // 添加普通用户
 router.post('/add',adminauth, async (req,res,next) => {
@@ -21,12 +22,14 @@ router.post('/add',adminauth, async (req,res,next) => {
                 let avatarNumber = Math.floor(Math.random()*9)
                 avatar = `http://pgdt2gm62.bkt.clouddn.com/avatar${avatarNumber}.png`
             }
-            const data = await user.create({username,password,nicheng,avatar,desc,job,phone,sex})
+            const data = await user.create({username,password,nicheng,avatar,desc,job,phone,sex}) //创建用户表
+            const marks = await integral.create({user:data._id}) //创建该用户的积分表
 
             res.json({ // count未加
                 code: 200,
+                msg: '添加普通用户成功',
                 data,
-                msg: '添加普通用户成功'
+                marks
             })
         }
         
@@ -48,6 +51,15 @@ router.post('/login', async (req,res,next) => {
                 })
             }else if(finddata.password == password){
                 req.session.user = finddata;
+                let marktable = await integral.findOne({user:finddata._id})
+                if(marktable){ // 有积分表
+                    console.log('有积分表')
+                    await marktable.update({$push:{marks:{type:'登录',mark:0.1}}})
+                    // await marktable.save()
+                }else{ // 无积分表
+                    console.log('无积分表')
+                }
+                // await integral.update({user:finddata._id},{$push:{marks}})
                 res.json({
                     code:200,
                     msg:'登录成功',
@@ -199,7 +211,7 @@ router.put('/password',auth,async(req,res,next) => {
     }
 })
 // 获取某个支部下的用户
-router.get('/branch',async(req,res,next) => {
+router.get('/branch',auth,async(req,res,next) => {
     try{
         let {branch} = req.query;
         let data = await user.find({branchStatus:branch}).select('username nicheng avatar')

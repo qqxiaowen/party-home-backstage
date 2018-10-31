@@ -35,7 +35,8 @@ router.post('/',auth,async(req,res,next) => {
 // 查看某条主题下的所有评论
 router.get('/bytopic/:id',async(req,res,next) => {
     try{
-        let {id,pn=1,size=10} = req.params;
+        let {id} = req.params;
+        let{pn=1,size=10} = req.query;
         pn = parseInt(pn)
         size = parseInt(size)
         let count = await common.count({topic:id})

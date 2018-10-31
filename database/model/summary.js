@@ -7,6 +7,15 @@ user:{
    ref:'user'
 },
 contents: [String],
+// grades:[
+//     {
+//         user:{
+//             type:mongoose.SchemaTypes.ObjectId,
+//             ref:'user'
+//         },
+//         grade:Number   
+//     }
+// ]
 
 
 },{versionKey: false, timestamps: { createdAt: 'createTime',updatedAt:'updateTime' } })

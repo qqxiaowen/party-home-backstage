@@ -14,7 +14,7 @@ app.use(session({
   secret: ' xiao ',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false ,expires:1000*60*60*1}, //secure:false 表示 https协议 
+  cookie: { secure: false ,expires:1000*60*60*2}, //secure:false 表示 https协议 
   store: new MongoStore({ mongooseConnection: db}) //防止服务器宕机session丢失，将其存入数据库db中
 }))
 

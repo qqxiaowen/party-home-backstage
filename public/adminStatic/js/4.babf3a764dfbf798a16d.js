@@ -1,0 +1,2 @@
+webpackJsonp([4],{"+t1j":function(t,e){},"26dS":function(t,e,a){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var r={render:function(){var t=this.$createElement,e=this._self._c||t;return e("div",[e("el-breadcrumb",{staticClass:"mb30",attrs:{separator:"/"}},[e("el-breadcrumb-item",{attrs:{to:{path:"/layout/home"}}},[this._v("首页")])],1),this._v(" "),e("h2",[this._v("欢迎来到党建一家后台管理系统")])],1)},staticRenderFns:[]};var s=a("VU/8")({},r,!1,function(t){a("+t1j")},"data-v-e48434da",null);e.default=s.exports}});
+//# sourceMappingURL=4.babf3a764dfbf798a16d.js.map
