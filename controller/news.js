@@ -4,6 +4,7 @@ const router = express.Router()
 const news = require('../database/model/news')
 const adminauth = require('./adminauth')
 const integral =require('../database/model/integral')
+const swiper = require('../database/model/swiper')
 
 // 添加新闻
 router.post(`/`,adminauth, async (req,res,next) => {
@@ -97,11 +98,20 @@ router.put(`/:id`,adminauth, async(req,res,next) => {
 router.delete(`/:id`,adminauth, async (req,res,next) => {
     try{
         let {id} = req.params;
-        await news.deleteOne({_id:id})
-        res.json({
-            code:200,
-            msg:'删除成功'
-        })    
+        let swiperdata = await swiper.findOne({newsId:id})
+        if(swiperdata){
+            res.json({
+                code:401,
+                msg:swiperdata.title+' 下还有该新闻，请先修改或删除轮播图'
+            })
+        }else{
+            await news.deleteOne({_id:id})
+            res.json({
+                code:200,
+                msg:'删除成功'
+            })
+        }
+            
     }catch(err){
         next(err)
     }
