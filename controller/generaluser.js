@@ -20,7 +20,7 @@ router.post('/add',adminauth, async (req,res,next) => {
         }else{
             if(!avatar){
                 let avatarNumber = Math.floor(Math.random()*9)
-                avatar = `http://pgdt2gm62.bkt.clouddn.com/avatar${avatarNumber}.png`
+                avatar = `http://pbl.mawenli.xyz/avatar${avatarNumber}.png`
             }
             const data = await user.create({username,password,nicheng,avatar,desc,job,phone,sex}) //创建用户表
             const marks = await integral.create({user:data._id}) //创建该用户的积分表

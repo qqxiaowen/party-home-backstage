@@ -24,7 +24,7 @@ router.post('/user',adminauth, async (req,res,next) => {
             
             if(!avatar){
                 let avatarNumber = Math.floor(Math.random()*9)
-                avatar = `http://pgdt2gm62.bkt.clouddn.com/avatar${avatarNumber}.png`
+                avatar = `http://pbl.mawenli.xyz/avatar${avatarNumber}.png`
             }
             const data = await adminuser.create({username,password,nicheng,avatar,desc,job,phone,sex})
 
